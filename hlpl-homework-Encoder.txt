@@ -1,0 +1,84 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream> 
+#include <algorithm> 
+using namespace std;
+int main() 
+{
+	
+  int N,i,p=0,l=0,k=0,m;
+
+  string line;
+  cin>>N;
+  string output[N];
+  string Numbers_str[N][125];
+  for(i=0;i<=N;i++)
+  {
+  	getline(cin,line);
+  	string number="";
+  		for(k=0;k<line.length();k++)
+  		{
+  			if(isdigit(line[k]))
+  			{
+  				 
+  				number+=line[k];
+  				if(k+1>=line.length())
+  				{
+  				Numbers_str[i-1][p]=number;
+  				number="";
+				p++;	
+				}
+			 
+			}
+  			else if(line[k]==32)
+  			{
+  				
+  				Numbers_str[i-1][p]=number;
+  				number="";
+				p++;
+  				
+			}
+
+		}
+		p=0;
+
+  }
+  
+ for(i=0;i<N;i++)
+ {
+ 	vector<int> myints;
+  	for(l=0;l<250;l++)
+ 	{
+ 	if(Numbers_str[i][l].empty()) break;
+ 	stringstream num(Numbers_str[i][l]); 
+ 	int num1; 
+    num >> num1;
+	myints.push_back(num1);
+	}
+
+	sort(myints.begin(), myints.end());
+	for(int r=0;r<myints.size();r++)
+	{
+		int o=0;
+		while(o<myints[r])
+		{
+			output[i]+="1";
+			o++;
+		}
+		if(r!=myints.size()-1)
+		output[i]+="-";
+	}
+	 
+ }
+
+ for(i=0;i<N;i++)
+ {
+ 	cout<<output[i];
+ 	if(i!=N-1)
+ 	{
+ 		cout<<endl;
+	}
+ }
+  
+}
